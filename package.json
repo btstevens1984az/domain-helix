@@ -4,6 +4,7 @@
   "private": false,
   "description": "Living digital twin of hybrid identity infrastructure — AD, Entra ID, certificates, EDR, APM, patch, and host health",
   "license": "MIT",
+  "author": "Brandon Stevens <24858436+btstevens1984az@users.noreply.github.com>",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "prisma generate && next build",

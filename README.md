@@ -183,4 +183,4 @@ npm run gifs   # regenerates docs/images/*.gif from the running app
 
 ## License
 
-[MIT](LICENSE) © DomainHelix contributors
+[MIT](LICENSE) © Brandon Stevens ([@btstevens1984az](https://github.com/btstevens1984az))

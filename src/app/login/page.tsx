@@ -2,7 +2,7 @@
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Building2,
@@ -68,7 +68,6 @@ const samlLabels: Record<SamlProviderId, string> = {
 };
 
 export default function LoginPage() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [method, setMethod] = useState<Method>("breakglass");
   const [caps, setCaps] = useState<Capabilities | null>(null);
@@ -136,7 +135,7 @@ export default function LoginPage() {
           redirect: false,
         });
         if (res?.error) throw new Error("Invalid breakglass credentials");
-        router.replace(callbackUrl);
+        window.location.assign(callbackUrl);
         return;
       }
 
@@ -147,7 +146,7 @@ export default function LoginPage() {
           redirect: false,
         });
         if (res?.error) throw new Error("Active Directory authentication failed");
-        router.replace(callbackUrl);
+        window.location.assign(callbackUrl);
         return;
       }
 

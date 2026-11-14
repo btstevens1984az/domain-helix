@@ -172,6 +172,9 @@ if (entraOidcConfigured()) {
   );
 }
 
+const authUrl = process.env.AUTH_URL || process.env.NEXTAUTH_URL || "";
+const secureCookies = /^https:\/\//i.test(authUrl);
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   secret: authSecret() || undefined,
   trustHost: true,
@@ -181,15 +184,16 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   },
   cookies: {
     sessionToken: {
-      name:
-        process.env.NODE_ENV === "production"
-          ? "__Secure-authjs.session-token"
-          : "authjs.session-token",
+      // Only use __Secure- + Secure flag when AUTH/NEXTAUTH URL is HTTPS.
+      // Docker/local demos run on http://localhost and must keep sessions.
+      name: secureCookies
+        ? "__Secure-authjs.session-token"
+        : "authjs.session-token",
       options: {
         httpOnly: true,
         sameSite: "lax",
         path: "/",
-        secure: process.env.NODE_ENV === "production",
+        secure: secureCookies,
       },
     },
   },

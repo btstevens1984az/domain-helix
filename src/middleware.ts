@@ -32,10 +32,14 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  const authUrl = process.env.AUTH_URL || process.env.NEXTAUTH_URL || "";
+  const secureCookie = /^https:\/\//i.test(authUrl);
+
   const token = await getToken({
     req: request,
     secret: authSecret() || process.env.NEXTAUTH_SECRET,
-    secureCookie: process.env.NODE_ENV === "production",
+    // Must match cookie naming in src/auth.ts (HTTP demos use non-__Secure- cookies)
+    secureCookie,
   });
 
   if (!token) {
