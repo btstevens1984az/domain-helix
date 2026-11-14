@@ -1,0 +1,186 @@
+@import "tailwindcss";
+
+:root {
+  --bg-deep: #070b10;
+  --bg-ink: #0c1219;
+  --bg-panel: rgba(16, 24, 34, 0.72);
+  --bg-panel-strong: rgba(18, 28, 40, 0.92);
+  --bg-elevated: rgba(24, 36, 50, 0.85);
+  --border-subtle: rgba(120, 160, 180, 0.12);
+  --border-strong: rgba(120, 190, 200, 0.28);
+  --text-primary: #e8f0f4;
+  --text-secondary: #9db0bc;
+  --text-muted: #6b7f8c;
+  --accent-cyan: #3ecfcf;
+  --accent-teal: #1fa8a0;
+  --accent-amber: #e6a23c;
+  --accent-coral: #e86a5c;
+  --signal-healthy: #3dd68c;
+  --signal-amber: #e6a23c;
+  --signal-critical: #f07178;
+  --signal-muted: #5c7380;
+  --glow-cyan: rgba(62, 207, 207, 0.22);
+  --glow-amber: rgba(230, 162, 60, 0.18);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --font-display: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-ibm-plex), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+}
+
+@theme inline {
+  --color-background: var(--bg-deep);
+  --color-foreground: var(--text-primary);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 700px at 12% -10%, rgba(31, 168, 160, 0.16), transparent 55%),
+    radial-gradient(900px 600px at 88% 0%, rgba(62, 207, 207, 0.08), transparent 50%),
+    radial-gradient(800px 500px at 70% 100%, rgba(230, 162, 60, 0.05), transparent 45%),
+    linear-gradient(165deg, var(--bg-deep) 0%, var(--bg-ink) 45%, #0a1017 100%);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(62, 207, 207, 0.28);
+  color: #fff;
+}
+
+.glass {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 18px 40px rgba(0, 0, 0, 0.28);
+}
+
+.glass-strong {
+  background: var(--bg-panel-strong);
+  border: 1px solid var(--border-subtle);
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+}
+
+.helix-grid {
+  background-image:
+    linear-gradient(rgba(120, 160, 180, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120, 160, 180, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, black 35%, transparent 78%);
+}
+
+.signal-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 22%, transparent);
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(120, 160, 180, 0.25);
+  border-radius: 999px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+
+.pulse-ring::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  border: 1px solid currentColor;
+  animation: pulse-ring 2.4s ease-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 25%,
+    rgba(255, 255, 255, 0.09) 37%,
+    rgba(255, 255, 255, 0.04) 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
+  border-radius: 8px;
+}
+
+.react-flow__attribution {
+  display: none !important;
+}
+
+.react-flow__edge-path {
+  stroke-linecap: round;
+}
+
+.react-flow__controls {
+  background: var(--bg-panel-strong) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35) !important;
+}
+
+.react-flow__controls-button {
+  background: transparent !important;
+  border-bottom: 1px solid var(--border-subtle) !important;
+  fill: var(--text-secondary) !important;
+}
+
+.react-flow__controls-button:hover {
+  background: rgba(62, 207, 207, 0.08) !important;
+}
+
+.react-flow__minimap {
+  background: rgba(8, 12, 18, 0.85) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+}

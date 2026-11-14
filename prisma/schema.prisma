@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String?
+  role         String   @default("identity_engineer") // identity_engineer | security_analyst | infrastructure_owner | admin
+  provider     String   @default("local") // local | entra
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  approvals    PlaybookRun[] @relation("Approver")
+  runs         PlaybookRun[] @relation("Requester")
+}
+
+model ConnectorConfig {
+  id        String   @id @default(cuid())
+  type      String   @unique // ad | entra | crowdstrike | dynatrace | bigfix | vmware | servicenow | splunk
+  enabled   Boolean  @default(false)
+  mockMode  Boolean  @default(true)
+  config    String   @default("{}") // JSON blob
+  lastSync  DateTime?
+  status    String   @default("idle") // idle | healthy | degraded | error
+  message   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Playbook {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  category    String // replication | certificate | patch | security | sync
+  platform    String // powershell | ansible | ssh
+  riskLevel   String // low | medium | high
+  script      String
+  requiresApproval Boolean @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  runs        PlaybookRun[]
+}
+
+model PlaybookRun {
+  id            String   @id @default(cuid())
+  playbookId    String
+  playbook      Playbook @relation(fields: [playbookId], references: [id])
+  targetNodes   String   // JSON array of node IDs
+  status        String   @default("pending") // pending | approved | running | succeeded | failed | rejected
+  requestedById String
+  requestedBy   User     @relation("Requester", fields: [requestedById], references: [id])
+  approvedById  String?
+  approvedBy    User?    @relation("Approver", fields: [approvedById], references: [id])
+  output        String?
+  scheduledFor  DateTime?
+  startedAt     DateTime?
+  completedAt   DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model HealthSnapshot {
+  id        String   @id @default(cuid())
+  nodeId    String
+  score     Float
+  metrics   String   // JSON
+  anomalies String   // JSON array
+  createdAt DateTime @default(now())
+
+  @@index([nodeId, createdAt])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  actor     String
+  action    String
+  resource  String
+  details   String?
+  createdAt DateTime @default(now())
+}

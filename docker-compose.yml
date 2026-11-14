@@ -1,0 +1,58 @@
+# One-command demo (SQLite, mock connectors):
+#   docker compose up --build
+#
+# Production-style Postgres stack:
+#   1. Set provider = "postgresql" in prisma/schema.prisma
+#   2. docker compose --profile postgres up --build
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: file:./prod.db
+      DEMO_MODE: "true"
+      NEXTAUTH_SECRET: domainhelix-compose-secret-change-me
+      NEXTAUTH_URL: http://localhost:3000
+      ADMIN_EMAIL: admin@domainhelix.local
+      ADMIN_PASSWORD: DomainHelix!Admin
+      AUTH_PROVIDER: local
+    restart: unless-stopped
+
+  db:
+    profiles: ["postgres"]
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: domainhelix
+      POSTGRES_PASSWORD: domainhelix
+      POSTGRES_DB: domainhelix
+    volumes:
+      - helix_pg:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U domainhelix -d domainhelix"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app-postgres:
+    profiles: ["postgres"]
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://domainhelix:domainhelix@db:5432/domainhelix?schema=public
+      DEMO_MODE: "true"
+      NEXTAUTH_SECRET: domainhelix-compose-secret-change-me
+      NEXTAUTH_URL: http://localhost:3000
+      ADMIN_EMAIL: admin@domainhelix.local
+      ADMIN_PASSWORD: DomainHelix!Admin
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  helix_pg:

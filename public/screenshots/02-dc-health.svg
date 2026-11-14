@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#070b10"/>
+      <stop offset="55%" stop-color="#0c1219"/>
+      <stop offset="100%" stop-color="#0a1017"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1fa8a0"/>
+      <stop offset="100%" stop-color="#3ecfcf"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <style>
+      .t { font-family: 'Sora', 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif; fill: #e8f0f4; }
+      .m { font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif; fill: #9db0bc; }
+      .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; fill: #9db0bc; }
+      .muted { fill: #6b7f8c; }
+      .cyan { fill: #3ecfcf; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#bg)"/>
+  <circle cx="180" cy="-40" r="320" fill="#1fa8a0" opacity="0.12"/>
+  <circle cx="1280" cy="40" r="260" fill="#3ecfcf" opacity="0.08"/>
+
+  <!-- Sidebar -->
+  <rect x="0" y="0" width="240" height="900" fill="rgba(18,28,40,0.92)" stroke="rgba(120,160,180,0.12)"/>
+  <rect x="20" y="22" width="36" height="36" rx="12" fill="url(#accent)" opacity="0.35"/>
+  <text x="68" y="40" class="t" font-size="16" font-weight="600">DomainHelix</text>
+  <text x="68" y="56" class="m muted" font-size="9" letter-spacing="2">HYBRID IDENTITY TWIN</text>
+
+  <rect x="16" y="100" width="208" height="34" rx="12" fill="transparent" stroke="transparent"/>
+      <text x="36" y="121" class="t" font-size="12" fill="#9db0bc">Identity Fabric</text>
+<rect x="16" y="142" width="208" height="34" rx="12" fill="transparent" stroke="transparent"/>
+      <text x="36" y="163" class="t" font-size="12" fill="#9db0bc">DC Health</text>
+<rect x="16" y="184" width="208" height="34" rx="12" fill="transparent" stroke="transparent"/>
+      <text x="36" y="205" class="t" font-size="12" fill="#9db0bc">AD ↔ Entra Drift</text>
+<rect x="16" y="226" width="208" height="34" rx="12" fill="transparent" stroke="transparent"/>
+      <text x="36" y="247" class="t" font-size="12" fill="#9db0bc">Certificates</text>
+<rect x="16" y="268" width="208" height="34" rx="12" fill="transparent" stroke="transparent"/>
+      <text x="36" y="289" class="t" font-size="12" fill="#9db0bc">Playbooks</text>
+<rect x="16" y="310" width="208" height="34" rx="12" fill="transparent" stroke="transparent"/>
+      <text x="36" y="331" class="t" font-size="12" fill="#9db0bc">Connectors</text>
+<rect x="16" y="352" width="208" height="34" rx="12" fill="transparent" stroke="transparent"/>
+      <text x="36" y="373" class="t" font-size="12" fill="#9db0bc">Reports</text>
+<rect x="16" y="394" width="208" height="34" rx="12" fill="transparent" stroke="transparent"/>
+      <text x="36" y="415" class="t" font-size="12" fill="#9db0bc">Settings</text>
+
+  <!-- Topbar -->
+  <text x="268" y="42" class="t" font-size="22" font-weight="600">Domain Controller Health</text>
+  <text x="268" y="62" class="m" font-size="12">Replication, auth latency, CrowdStrike, BigFix, and host posture</text>
+  <rect x="1100" y="24" width="120" height="28" rx="14" fill="rgba(62,207,207,0.12)" stroke="rgba(62,207,207,0.3)"/>
+  <text x="1160" y="42" text-anchor="middle" class="cyan" font-size="11">Live telemetry</text>
+  <rect x="1235" y="24" width="180" height="28" rx="14" fill="rgba(255,255,255,0.04)" stroke="rgba(120,160,180,0.15)"/>
+  <text x="1325" y="42" text-anchor="middle" class="m" font-size="10">admin@domainhelix.local</text>
+
+  <rect x="268" y="120" width="360" height="88" rx="14" fill="rgba(16,24,34,0.72)" stroke="rgba(120,160,180,0.12)"/><text x="288" y="152" class="t" font-size="16" font-weight="600">PHX-DC01</text>
+       <text x="288" y="174" class="m" font-size="11">lag 8s · LDAP 8 ms</text>
+       <text x="560" y="160" class="t" font-size="28" font-weight="600">98</text>
+       <circle cx="590" cy="182" r="5" fill="#3dd68c"/>
+       <text x="602" y="186" class="m" font-size="11">healthy</text><rect x="268" y="220" width="360" height="88" rx="14" fill="rgba(16,24,34,0.72)" stroke="rgba(120,160,180,0.12)"/><text x="288" y="252" class="t" font-size="16" font-weight="600">PHX-DC02</text>
+       <text x="288" y="274" class="m" font-size="11">lag 21s · LDAP 8 ms</text>
+       <text x="560" y="260" class="t" font-size="28" font-weight="600">96</text>
+       <circle cx="590" cy="282" r="5" fill="#3dd68c"/>
+       <text x="602" y="286" class="m" font-size="11">healthy</text><rect x="268" y="320" width="360" height="88" rx="14" fill="rgba(16,24,34,0.72)" stroke="rgba(120,160,180,0.12)"/><text x="288" y="352" class="t" font-size="16" font-weight="600">DAL-DC01</text>
+       <text x="288" y="374" class="m" font-size="11">lag 247s · LDAP 42 ms</text>
+       <text x="560" y="360" class="t" font-size="28" font-weight="600">70</text>
+       <circle cx="590" cy="382" r="5" fill="#e6a23c"/>
+       <text x="602" y="386" class="m" font-size="11">degraded</text><rect x="268" y="420" width="360" height="88" rx="14" fill="rgba(16,24,34,0.72)" stroke="rgba(120,160,180,0.12)"/><text x="288" y="452" class="t" font-size="16" font-weight="600">LON-DC01</text>
+       <text x="288" y="474" class="m" font-size="11">lag 2273s · LDAP 187 ms</text>
+       <text x="560" y="460" class="t" font-size="28" font-weight="600">18</text>
+       <circle cx="590" cy="482" r="5" fill="#f07178"/>
+       <text x="602" y="486" class="m" font-size="11">critical</text><rect x="268" y="520" width="360" height="88" rx="14" fill="rgba(16,24,34,0.72)" stroke="rgba(120,160,180,0.12)"/><text x="288" y="552" class="t" font-size="16" font-weight="600">PHX-RODC01</text>
+       <text x="288" y="574" class="m" font-size="11">lag 35s · LDAP 14 ms</text>
+       <text x="560" y="560" class="t" font-size="28" font-weight="600">96</text>
+       <circle cx="590" cy="582" r="5" fill="#3dd68c"/>
+       <text x="602" y="586" class="m" font-size="11">healthy</text>
+      <rect x="660" y="120" width="740" height="260" rx="14" fill="rgba(16,24,34,0.72)" stroke="rgba(120,160,180,0.12)"/><text x="680" y="150" class="t" font-size="18" font-weight="600">LON-DC01</text>
+       <text x="680" y="175" class="m" font-size="12">Kerberos 212 ms · Cert risk 82 · BigFix 71.2%</text>
+       <path d="M700 250 C780 210, 860 280, 940 230 S1100 200, 1300 240" stroke="#3ecfcf" stroke-width="2.5" fill="none"/>
+       <path d="M700 270 C780 300, 860 250, 940 280 S1100 310, 1300 270" stroke="#e6a23c" stroke-width="2" fill="none" opacity="0.85"/>
+       <text x="680" y="340" class="m muted" font-size="11">Dynatrace-correlated LDAP / Kerberos latency</text>
+      <rect x="680" y="420" width="700" height="68" rx="12" fill="rgba(0,0,0,0.2)" stroke="rgba(120,160,180,0.12)"/>
+       <text x="700" y="444" class="t" font-size="13">Replication nearly stalled</text>
+       <text x="700" y="466" class="m" font-size="11">Inbound USN lag 38 minutes from PHX-DC02. Possible WAN or RPC issue.</text><rect x="680" y="500" width="700" height="68" rx="12" fill="rgba(0,0,0,0.2)" stroke="rgba(120,160,180,0.12)"/>
+       <text x="700" y="524" class="t" font-size="13">Kerberos latency spike</text>
+       <text x="700" y="546" class="m" font-size="11">Dynatrace AS-REQ p95 at 210ms (baseline 18ms).</text><rect x="680" y="580" width="700" height="68" rx="12" fill="rgba(0,0,0,0.2)" stroke="rgba(120,160,180,0.12)"/>
+       <text x="700" y="604" class="t" font-size="13">High-severity CrowdStrike detections</text>
+       <text x="700" y="626" class="m" font-size="11">4 detections including suspicious PowerShell and lateral movement indicators.</text>
+</svg>
