@@ -30,7 +30,7 @@
     "date-fns": "^4.4.0",
     "framer-motion": "^14.14.0",
     "jose": "^6.2.17",
-    "ldapts": "^7.4.0",
+    "ldapts": "^9.2.0",
     "lucide-react": "^1.73.0",
     "next": "15.5.29",
     "next-auth": "^5.0.0-beta.32",
