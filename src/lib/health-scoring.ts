@@ -10,18 +10,18 @@ export function scoreToLevel(score: number): HealthLevel {
 /**
  * Composite Domain Controller health score (0–100).
  * Weights tuned for identity infrastructure triage:
- * replication and auth latency dominate; security and patch posture amplify risk.
+ * replication and auth latency dominate; EDR and patch posture amplify risk.
  */
 export function computeDcHealthScore(input: {
   replicationLagSeconds: number;
   ldapLatencyMs: number;
   kerberosLatencyMs: number;
   certRiskScore: number;
-  crowdstrikeSeverity: DcHealthMetric["crowdstrikeSeverity"];
-  bigFixMissingCritical: number;
-  bigFixCompliancePct: number;
+  edrSeverity: DcHealthMetric["edrSeverity"];
+  patchMissingCritical: number;
+  patchCompliancePct: number;
   ntdsTrendPct: number;
-  vmwareHostHealth: HealthLevel;
+  hostHealth: HealthLevel;
 }): { score: number; level: HealthLevel; factors: Record<string, number> } {
   const lagScore = clamp(
     100 - Math.max(0, input.replicationLagSeconds - 30) / 20,
@@ -36,19 +36,19 @@ export function computeDcHealthScore(input: {
   );
   const certScore = clamp(100 - input.certRiskScore, 0, 100);
 
-  const csMap = { none: 100, low: 85, medium: 60, high: 30, critical: 5 } as const;
-  const csScore = csMap[input.crowdstrikeSeverity];
+  const edrMap = { none: 100, low: 85, medium: 60, high: 30, critical: 5 } as const;
+  const edrScore = edrMap[input.edrSeverity];
 
   const patchScore = clamp(
-    input.bigFixCompliancePct - input.bigFixMissingCritical * 6,
+    input.patchCompliancePct - input.patchMissingCritical * 6,
     0,
     100
   );
   const ntdsScore = clamp(100 - Math.max(0, input.ntdsTrendPct - 2) * 8, 0, 100);
-  const vmScore =
-    input.vmwareHostHealth === "healthy"
+  const hostScore =
+    input.hostHealth === "healthy"
       ? 100
-      : input.vmwareHostHealth === "degraded"
+      : input.hostHealth === "degraded"
         ? 65
         : 30;
 
@@ -57,10 +57,10 @@ export function computeDcHealthScore(input: {
     ldap: ldapScore,
     kerberos: kerberosScore,
     certificates: certScore,
-    crowdstrike: csScore,
+    edr: edrScore,
     patch: patchScore,
     ntdsGrowth: ntdsScore,
-    vmware: vmScore,
+    host: hostScore,
   };
 
   const score =
@@ -68,10 +68,10 @@ export function computeDcHealthScore(input: {
     ldapScore * 0.12 +
     kerberosScore * 0.12 +
     certScore * 0.12 +
-    csScore * 0.14 +
+    edrScore * 0.14 +
     patchScore * 0.12 +
     ntdsScore * 0.08 +
-    vmScore * 0.08;
+    hostScore * 0.08;
 
   const rounded = Math.round(clamp(score, 0, 100));
   return { score: rounded, level: scoreToLevel(rounded), factors };

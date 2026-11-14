@@ -2,7 +2,7 @@
   "name": "domain-helix",
   "version": "1.0.0",
   "private": false,
-  "description": "Living digital twin of hybrid identity infrastructure — AD, Entra ID, CrowdStrike, Dynatrace, BigFix, VMware",
+  "description": "Living digital twin of hybrid identity infrastructure — AD, Entra ID, certificates, EDR, APM, patch, and host health",
   "license": "MIT",
   "scripts": {
     "dev": "next dev --turbopack",
@@ -14,12 +14,14 @@
     "db:seed": "tsx prisma/seed.ts",
     "db:setup": "prisma generate && prisma db push && tsx prisma/seed.ts",
     "screenshots": "node scripts/generate-screenshots.mjs",
+    "gifs": "node scripts/generate-gifs.mjs",
     "postinstall": "prisma generate"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
+    "@node-saml/node-saml": "^5.2.0",
     "@prisma/client": "5.22.0",
     "@xyflow/react": "^12.12.1",
     "bcryptjs": "^3.0.3",
@@ -28,6 +30,7 @@
     "date-fns": "^4.4.0",
     "framer-motion": "^14.14.0",
     "jose": "^6.2.17",
+    "ldapts": "^7.4.0",
     "lucide-react": "^1.73.0",
     "next": "15.5.29",
     "next-auth": "^5.0.0-beta.32",
@@ -49,6 +52,7 @@
     "@types/uuid": "^10.0.0",
     "eslint": "^9",
     "eslint-config-next": "15.5.29",
+    "omggif": "^1.0.10",
     "prisma": "5.22.0",
     "puppeteer": "^23.11.1",
     "sharp": "^0.33.5",

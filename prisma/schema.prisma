@@ -13,24 +13,48 @@ model User {
   name         String
   passwordHash String?
   role         String   @default("identity_engineer") // identity_engineer | security_analyst | infrastructure_owner | admin
-  provider     String   @default("local") // local | entra
+  provider     String   @default("local") // local | active-directory | entra | saml
+  groups       String   @default("[]") // JSON array of group/role claims
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   approvals    PlaybookRun[] @relation("Approver")
   runs         PlaybookRun[] @relation("Requester")
+  accounts     Account[]
+  sessions     Session[]
 }
 
-model ConnectorConfig {
-  id        String   @id @default(cuid())
-  type      String   @unique // ad | entra | crowdstrike | dynatrace | bigfix | vmware | servicenow | splunk
-  enabled   Boolean  @default(false)
-  mockMode  Boolean  @default(true)
-  config    String   @default("{}") // JSON blob
-  lastSync  DateTime?
-  status    String   @default("idle") // idle | healthy | degraded | error
-  message   String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }
 
 model Playbook {

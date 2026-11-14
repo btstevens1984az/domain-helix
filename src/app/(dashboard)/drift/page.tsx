@@ -74,7 +74,7 @@ export default function DriftPage() {
               {filtered.length === 0 ? (
                 <EmptyState
                   title="No drift in this filter"
-                  description="Adjust filters or connect live Entra + AD connectors."
+                  description="Adjust filters or refine the Contoso demo drift dataset."
                 />
               ) : (
                 filtered.map((f, i) => (

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getFabricSnapshot } from "@/lib/connectors/registry";
+import { getFabricSnapshot } from "@/lib/fabric";
 
 export const dynamic = "force-dynamic";
 

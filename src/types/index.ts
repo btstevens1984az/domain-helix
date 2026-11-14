@@ -9,8 +9,8 @@ export type NodeKind =
   | "entra_connect"
   | "certificate_authority"
   | "certificate_template"
-  | "vmware_host"
-  | "vmware_cluster";
+  | "virt_host"
+  | "virt_cluster";
 
 export type EdgeKind =
   | "replication"
@@ -63,11 +63,14 @@ export interface DcHealthMetric {
   ldapLatencyMs: number;
   kerberosLatencyMs: number;
   certRiskScore: number;
-  crowdstrikeSeverity: "none" | "low" | "medium" | "high" | "critical";
-  crowdstrikeDetections: number;
-  bigFixMissingCritical: number;
-  bigFixCompliancePct: number;
-  vmwareHostHealth: HealthLevel;
+  /** Endpoint detection / EDR posture */
+  edrSeverity: "none" | "low" | "medium" | "high" | "critical";
+  edrDetections: number;
+  /** Patch & compliance gaps */
+  patchMissingCritical: number;
+  patchCompliancePct: number;
+  /** Virtualization / host health */
+  hostHealth: HealthLevel;
   anomalies: Anomaly[];
   fsmoRoles: string[];
   lastSeen: string;
@@ -117,18 +120,6 @@ export interface CertificateAsset {
   published: boolean;
 }
 
-export interface ConnectorStatus {
-  type: string;
-  name: string;
-  description: string;
-  enabled: boolean;
-  mockMode: boolean;
-  status: "idle" | "healthy" | "degraded" | "error" | "unconfigured";
-  message: string;
-  lastSync?: string;
-  icon: string;
-}
-
 export interface PlaybookDefinition {
   id: string;
   name: string;
@@ -157,9 +148,19 @@ export interface PlaybookRunSummary {
 
 export interface LiveEvent {
   id: string;
-  type: "health" | "anomaly" | "drift" | "cert" | "playbook" | "connector";
+  type: "health" | "anomaly" | "drift" | "cert" | "playbook";
   severity: "info" | "warning" | "critical";
   message: string;
   nodeId?: string;
   timestamp: string;
 }
+
+export type AuthMethod = "breakglass" | "active-directory" | "entra" | "saml";
+
+export type SamlProviderId =
+  | "entra-saml"
+  | "okta"
+  | "ping"
+  | "onelogin"
+  | "google"
+  | "generic";

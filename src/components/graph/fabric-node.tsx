@@ -22,8 +22,8 @@ const icons: Partial<Record<NodeKind, typeof Server>> = {
   entra_connect: Workflow,
   certificate_authority: FileKey2,
   certificate_template: FileKey2,
-  vmware_host: Shield,
-  vmware_cluster: Shield,
+  virt_host: Shield,
+  virt_cluster: Shield,
 };
 
 const healthAccent: Record<HealthLevel, string> = {

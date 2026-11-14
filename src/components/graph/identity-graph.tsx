@@ -28,8 +28,8 @@ function layoutNodes(nodes: GraphNode[]): Node[] {
     entra_tenant: 3,
     certificate_authority: 0.5,
     certificate_template: 1.5,
-    vmware_cluster: 2.5,
-    vmware_host: 3,
+    virt_cluster: 2.5,
+    virt_host: 3,
     subnet: 0,
   };
   const counters: Record<string, number> = {};
@@ -110,8 +110,8 @@ function filterByRole(graph: IdentityGraph, role: RoleView): IdentityGraph {
   const keepKinds = new Set([
     "domain_controller",
     "site",
-    "vmware_host",
-    "vmware_cluster",
+    "virt_host",
+    "virt_cluster",
     "entra_connect",
   ]);
   const nodes = graph.nodes.filter((n) => keepKinds.has(n.kind));

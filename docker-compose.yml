@@ -1,4 +1,4 @@
-# One-command demo (SQLite, mock connectors):
+# One-command demo (SQLite, demo fabric):
 #   docker compose up --build
 #
 # Production-style Postgres stack:
@@ -13,12 +13,20 @@ services:
     environment:
       DATABASE_URL: file:./prod.db
       DEMO_MODE: "true"
+      AUTH_SECRET: domainhelix-compose-secret-change-me
       NEXTAUTH_SECRET: domainhelix-compose-secret-change-me
       NEXTAUTH_URL: http://localhost:3000
-      ADMIN_EMAIL: admin@domainhelix.local
-      ADMIN_PASSWORD: DomainHelix!Admin
-      AUTH_PROVIDER: local
+      BREAKGLASS_EMAIL: breakglass@domainhelix.local
+      BREAKGLASS_PASSWORD: ChangeMe-DomainHelix-Breakglass-2026!
+      ADMIN_EMAIL: breakglass@domainhelix.local
+      ADMIN_PASSWORD: ChangeMe-DomainHelix-Breakglass-2026!
+      AUTH_PROVIDER: multi
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/api/health/live"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
 
   db:
     profiles: ["postgres"]
@@ -45,10 +53,11 @@ services:
     environment:
       DATABASE_URL: postgresql://domainhelix:domainhelix@db:5432/domainhelix?schema=public
       DEMO_MODE: "true"
+      AUTH_SECRET: domainhelix-compose-secret-change-me
       NEXTAUTH_SECRET: domainhelix-compose-secret-change-me
       NEXTAUTH_URL: http://localhost:3000
-      ADMIN_EMAIL: admin@domainhelix.local
-      ADMIN_PASSWORD: DomainHelix!Admin
+      BREAKGLASS_EMAIL: breakglass@domainhelix.local
+      BREAKGLASS_PASSWORD: ChangeMe-DomainHelix-Breakglass-2026!
     depends_on:
       db:
         condition: service_healthy

@@ -9,12 +9,12 @@ export const ROLE_FOCUS: Record<
     emphasis: ["drift", "sync", "fsmo", "certificates"],
   },
   security_analyst: {
-    headline: "Security Analyst view — detections, containment, cert risk",
-    emphasis: ["crowdstrike", "certificates", "playbooks", "anomalies"],
+    headline: "Security Analyst view — EDR posture, containment, cert risk",
+    emphasis: ["edr", "certificates", "playbooks", "anomalies"],
   },
   infrastructure_owner: {
     headline: "Infrastructure Owner view — host health, patches, replication",
-    emphasis: ["vmware", "bigfix", "replication", "health"],
+    emphasis: ["host", "patch", "replication", "health"],
   },
   admin: {
     headline: "Administrator view — full hybrid fabric",

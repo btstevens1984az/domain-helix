@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Bell, Radio } from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
+import { Bell, LogOut, Radio } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { RoleSwitcher } from "@/components/layout/role-switcher";
 import type { LiveEvent, RoleView } from "@/types";
@@ -17,6 +18,7 @@ export function Topbar({
   role: RoleView;
   onRoleChange: (role: RoleView) => void;
 }) {
+  const { data: session } = useSession();
   const [live, setLive] = useState(true);
   const [events, setEvents] = useState<LiveEvent[]>([]);
 
@@ -73,7 +75,16 @@ export function Topbar({
           ) : null}
         </div>
 
-        <Badge variant="cyan">admin@domainhelix.local</Badge>
+        <Badge variant="cyan">{session?.user?.email ?? "signed in"}</Badge>
+
+        <button
+          type="button"
+          onClick={() => signOut({ callbackUrl: "/login" })}
+          className="flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--border-subtle)] bg-white/[0.03] text-[var(--text-secondary)] hover:bg-white/[0.06]"
+          title="Sign out"
+        >
+          <LogOut className="h-4 w-4" />
+        </button>
       </div>
     </header>
   );

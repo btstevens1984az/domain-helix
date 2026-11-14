@@ -34,4 +34,4 @@ COPY --from=builder /app/next.config.ts ./next.config.ts
 
 USER helix
 EXPOSE 3000
-CMD ["sh", "-c", "npx prisma db push && node node_modules/next/dist/bin/next start -p 3000"]
+CMD ["sh", "-c", "npx prisma db push && npx tsx prisma/seed.ts && node node_modules/next/dist/bin/next start -p 3000"]

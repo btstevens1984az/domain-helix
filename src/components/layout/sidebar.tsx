@@ -7,7 +7,6 @@ import {
   FileKey2,
   GitCompareArrows,
   Network,
-  Plug,
   ScrollText,
   Settings,
   Shield,
@@ -22,7 +21,6 @@ const nav = [
   { href: "/drift", label: "AD ↔ Entra Drift", icon: GitCompareArrows },
   { href: "/certificates", label: "Certificates", icon: FileKey2 },
   { href: "/playbooks", label: "Playbooks", icon: Workflow },
-  { href: "/connectors", label: "Connectors", icon: Plug },
   { href: "/reports", label: "Reports", icon: ScrollText },
   { href: "/settings", label: "Settings", icon: Settings },
 ];
@@ -83,7 +81,7 @@ export function Sidebar() {
             Demo fabric
           </div>
           <p className="text-[11px] leading-relaxed text-[var(--text-secondary)]">
-            Contoso hybrid identity — mock connectors active. Connect live sources in Settings.
+            Contoso hybrid identity demo fabric. Sign-in options and security guidance live in Settings.
           </p>
         </div>
       </div>

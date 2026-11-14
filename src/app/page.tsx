@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
+import { auth } from "@/auth";
 
-export default function Home() {
-  redirect("/graph");
+export default async function Home() {
+  const session = await auth();
+  redirect(session ? "/graph" : "/login");
 }

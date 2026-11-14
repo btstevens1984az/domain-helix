@@ -39,8 +39,8 @@ export async function GET(request: Request) {
       "Stabilize LON-DC01 replication before promoting additional EMEA workloads.",
       "Renew LON-DC01 Domain Controller authentication certificate (11 days remaining).",
       "Reclaim licenses on disabled accounts flagged in AD↔Entra drift.",
-      "Schedule BigFix critical baseline for DAL-DC01 and LON-DC01 in next maintenance window.",
-      "Investigate CrowdStrike high-severity detections on LON-DC01; consider containment playbook.",
+      "Schedule critical patch baseline for DAL-DC01 and LON-DC01 in next maintenance window.",
+      "Investigate high-severity EDR detections on LON-DC01; consider containment playbook.",
     ],
   };
 

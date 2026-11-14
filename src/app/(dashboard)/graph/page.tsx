@@ -94,8 +94,8 @@ export default function GraphPage() {
             ) : (
               <p className="text-xs leading-relaxed text-[var(--text-muted)]">
                 The graph is the emotional center of DomainHelix — Domain Controllers, replication,
-                trusts, Entra Connect, certificate chains, and VMware hosts correlated in one living
-                twin. Click any node to inspect correlated signals.
+                trusts, Entra Connect, certificate chains, and virtualization hosts correlated in one
+                living twin. Click any node to inspect correlated signals.
               </p>
             )}
 

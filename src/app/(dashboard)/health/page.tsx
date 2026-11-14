@@ -52,7 +52,7 @@ export default function HealthPage() {
     <div className="flex h-full flex-col">
       <Topbar
         title="Domain Controller Health"
-        subtitle="Replication, auth latency, CrowdStrike, BigFix, and host posture — scored continuously"
+        subtitle="Replication, APM auth latency, EDR posture, patch compliance, and host health — scored continuously"
         role={role}
         onRoleChange={setRole}
       />
@@ -106,8 +106,9 @@ export default function HealthPage() {
                   ["NTDS size", `${active.ntdsSizeGb} GB`],
                   ["NTDS trend", `${active.ntdsTrendPct > 0 ? "+" : ""}${active.ntdsTrendPct}%`],
                   ["Cert risk", String(active.certRiskScore)],
-                  ["CrowdStrike", `${active.crowdstrikeSeverity} (${active.crowdstrikeDetections})`],
-                  ["BigFix compliance", formatPercent(active.bigFixCompliancePct, 1)],
+                  ["EDR posture", `${active.edrSeverity} (${active.edrDetections})`],
+                  ["Patch compliance", formatPercent(active.patchCompliancePct, 1)],
+                  ["Host health", active.hostHealth],
                 ].map(([k, v]) => (
                   <div
                     key={k}
@@ -125,7 +126,7 @@ export default function HealthPage() {
             <Card>
               <CardHeader
                 title="Authentication latency"
-                description="Dynatrace-correlated LDAP / Kerberos path (demo series)"
+                description="APM-correlated LDAP / Kerberos path (demo series)"
               />
               <div className="h-56">
                 <ResponsiveContainer width="100%" height="100%">

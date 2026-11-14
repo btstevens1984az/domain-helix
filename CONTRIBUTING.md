@@ -1,6 +1,6 @@
 # Contributing to DomainHelix
 
-Thank you for helping build a calmer, clearer hybrid identity twin.
+Thanks for helping improve the hybrid identity digital twin.
 
 ## Development
 
@@ -11,29 +11,29 @@ npm run db:setup
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Sign in with the breakglass account from `.env` (see [docs/authentication.md](docs/authentication.md)).
 
 ## Guidelines
 
-1. Prefer working demoable features over stubs.
-2. Keep mock/demo mode as a first-class path — connectors must degrade gracefully.
-3. Match the visual language: deep slate/ink, cyan/teal signals, amber warnings — intelligent and calm.
-4. Add types for new domain models in `src/types`.
-5. Extend connectors via `src/lib/connectors/registry.ts` rather than scattering env checks.
-6. Do not commit secrets, live customer data, or production credentials.
+1. Prefer calm, dark-mode-first UI consistent with the Identity Fabric look.
+2. Keep demo mode as a first-class path — missing telemetry must degrade gracefully.
+3. Do not reintroduce a Connectors product surface or third-party product brand names in user-facing copy.
+4. Use generic capability language for health signals (EDR, APM, patch, host).
+5. Extend fabric data via `src/lib/fabric.ts` and `src/lib/demo-data.ts`.
+6. Auth changes must keep middleware protection and documented env contracts in `.env.example`.
+7. Prefer focused PRs with screenshots or GIFs for UI changes (`npm run gifs`).
 
-## Pull requests
+## Scripts
 
-- Keep PRs focused and reviewable.
-- Include screenshots for UI changes.
-- Update `.env.example` when adding configuration.
-- Ensure `npm run build` succeeds.
+```bash
+npm run lint
+npm run build
+npm run gifs   # regenerates docs/images animated captures
+```
 
 ## Roadmap ideas
 
-- Live LDAP / Microsoft Graph connectors beyond mock mode
-- ServiceNow incident creation from anomalies
-- Splunk HEC event forwarding
+- Live LDAP + Microsoft Graph inventory beyond demo payloads
 - Conditional Access & PIM deep-dive panels
-- Multi-forest topology layouts
-- Signed playbook attestation and change windows
+- Multi-forest layout algorithms
+- Signed playbook attestation & change windows

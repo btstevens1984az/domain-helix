@@ -1,7 +1,6 @@
 import type {
   Anomaly,
   CertificateAsset,
-  ConnectorStatus,
   DcHealthMetric,
   DriftFinding,
   IdentityGraph,
@@ -217,16 +216,16 @@ export const DEMO_GRAPH: IdentityGraph = {
     },
     {
       id: "vm-cluster-phx",
-      kind: "vmware_cluster",
+      kind: "virt_cluster",
       label: "PHX-Compute-01",
-      subtitle: "vSphere cluster · 4 hosts",
+      subtitle: "Virtualization cluster · 4 hosts",
       health: "healthy",
       score: 94,
-      meta: { vcenter: "vcenter.contoso.local", hosts: 4 },
+      meta: { hypervisor: "virt.contoso.local", hosts: 4 },
     },
     {
       id: "vm-host-phx01",
-      kind: "vmware_host",
+      kind: "virt_host",
       label: "esxi-phx-01",
       subtitle: "Hosts PHX-DC01/02",
       health: "healthy",
@@ -235,7 +234,7 @@ export const DEMO_GRAPH: IdentityGraph = {
     },
     {
       id: "vm-host-dal01",
-      kind: "vmware_host",
+      kind: "virt_host",
       label: "esxi-dal-01",
       subtitle: "Hosts DAL-DC01",
       health: "degraded",
@@ -398,11 +397,11 @@ export const DEMO_DC_HEALTH: DcHealthMetric[] = [
     ldapLatencyMs: 8,
     kerberosLatencyMs: 6,
     certRiskScore: 12,
-    crowdstrikeSeverity: "none",
-    crowdstrikeDetections: 0,
-    bigFixMissingCritical: 0,
-    bigFixCompliancePct: 99.2,
-    vmwareHostHealth: "healthy",
+    edrSeverity: "none",
+    edrDetections: 0,
+    patchMissingCritical: 0,
+    patchCompliancePct: 99.2,
+    hostHealth: "healthy",
     fsmoRoles: ["PDC Emulator", "Schema Master", "Domain Naming Master"],
     lastSeen: now(),
     anomalies: [],
@@ -418,11 +417,11 @@ export const DEMO_DC_HEALTH: DcHealthMetric[] = [
     ldapLatencyMs: 9,
     kerberosLatencyMs: 7,
     certRiskScore: 15,
-    crowdstrikeSeverity: "low",
-    crowdstrikeDetections: 1,
-    bigFixMissingCritical: 0,
-    bigFixCompliancePct: 98.7,
-    vmwareHostHealth: "healthy",
+    edrSeverity: "low",
+    edrDetections: 1,
+    patchMissingCritical: 0,
+    patchCompliancePct: 98.7,
+    hostHealth: "healthy",
     fsmoRoles: ["Infrastructure Master"],
     lastSeen: now(),
     anomalies: [
@@ -430,7 +429,7 @@ export const DEMO_DC_HEALTH: DcHealthMetric[] = [
         id: "a-phx02-1",
         severity: "info",
         category: "security",
-        title: "Low-severity Falcon detection",
+        title: "Low-severity EDR detection",
         detail: "Informational process anomaly on lsass monitoring — auto-resolved pattern.",
         detectedAt: hoursAgo(3),
       },
@@ -447,11 +446,11 @@ export const DEMO_DC_HEALTH: DcHealthMetric[] = [
     ldapLatencyMs: 42,
     kerberosLatencyMs: 38,
     certRiskScore: 55,
-    crowdstrikeSeverity: "medium",
-    crowdstrikeDetections: 2,
-    bigFixMissingCritical: 3,
-    bigFixCompliancePct: 86.4,
-    vmwareHostHealth: "degraded",
+    edrSeverity: "medium",
+    edrDetections: 2,
+    patchMissingCritical: 3,
+    patchCompliancePct: 86.4,
+    hostHealth: "degraded",
     fsmoRoles: ["RID Master"],
     lastSeen: now(),
     anomalies: [
@@ -467,7 +466,7 @@ export const DEMO_DC_HEALTH: DcHealthMetric[] = [
         id: "a-dal01-2",
         severity: "warning",
         category: "patch",
-        title: "3 critical BigFix patches missing",
+        title: "3 critical patches missing",
         detail: "KB5035849, KB5036896, and Defender platform update pending.",
         detectedAt: hoursAgo(6),
       },
@@ -475,7 +474,7 @@ export const DEMO_DC_HEALTH: DcHealthMetric[] = [
         id: "a-dal01-3",
         severity: "warning",
         category: "infra",
-        title: "vSphere host memory pressure",
+        title: "Virtualization host memory pressure",
         detail: "esxi-dal-01 memory at 84% with ballooning observed.",
         detectedAt: hoursAgo(2),
       },
@@ -492,11 +491,11 @@ export const DEMO_DC_HEALTH: DcHealthMetric[] = [
     ldapLatencyMs: 186,
     kerberosLatencyMs: 210,
     certRiskScore: 82,
-    crowdstrikeSeverity: "high",
-    crowdstrikeDetections: 4,
-    bigFixMissingCritical: 7,
-    bigFixCompliancePct: 71.2,
-    vmwareHostHealth: "degraded",
+    edrSeverity: "high",
+    edrDetections: 4,
+    patchMissingCritical: 7,
+    patchCompliancePct: 71.2,
+    hostHealth: "degraded",
     fsmoRoles: [],
     lastSeen: hoursAgo(0.15),
     anomalies: [
@@ -513,14 +512,14 @@ export const DEMO_DC_HEALTH: DcHealthMetric[] = [
         severity: "critical",
         category: "auth",
         title: "Kerberos latency spike",
-        detail: "Dynatrace AS-REQ p95 at 210ms (baseline 18ms).",
+        detail: "APM AS-REQ p95 at 210ms (baseline 18ms).",
         detectedAt: hoursAgo(0.3),
       },
       {
         id: "a-lon01-3",
         severity: "critical",
         category: "security",
-        title: "High-severity CrowdStrike detections",
+        title: "High-severity EDR detections",
         detail: "4 detections including suspicious PowerShell and lateral movement indicators.",
         detectedAt: hoursAgo(0.8),
       },
@@ -545,11 +544,11 @@ export const DEMO_DC_HEALTH: DcHealthMetric[] = [
     ldapLatencyMs: 14,
     kerberosLatencyMs: 11,
     certRiskScore: 20,
-    crowdstrikeSeverity: "none",
-    crowdstrikeDetections: 0,
-    bigFixMissingCritical: 1,
-    bigFixCompliancePct: 95.1,
-    vmwareHostHealth: "healthy",
+    edrSeverity: "none",
+    edrDetections: 0,
+    patchMissingCritical: 1,
+    patchCompliancePct: 95.1,
+    hostHealth: "healthy",
     fsmoRoles: [],
     lastSeen: now(),
     anomalies: [
@@ -842,25 +841,25 @@ Invoke-Command -ComputerName $ComputerName -ScriptBlock {
 Write-Output "Certificate renewal pulse sent to $ComputerName"`,
   },
   {
-    id: "pb-bigfix-patch",
-    name: "Deploy Critical BigFix Patches",
-    description: "Offer and apply outstanding critical Fixlets for selected Domain Controllers.",
+    id: "pb-patch-critical",
+    name: "Deploy Critical Patches",
+    description: "Offer and apply outstanding critical patches for selected Domain Controllers.",
     category: "patch",
     platform: "ansible",
     riskLevel: "high",
     requiresApproval: true,
     estimatedDuration: "30–90 min",
     script: `---
-- name: DomainHelix — Critical BigFix patch wave
+- name: DomainHelix — Critical patch wave
   hosts: domain_controllers
   gather_facts: false
   tasks:
-    - name: Trigger BigFix action for critical baselines
+    - name: Trigger patch action for critical baselines
       uri:
-        url: "{{ bigfix_url }}/api/actions"
+        url: "{{ patch_url }}/api/actions"
         method: POST
-        user: "{{ bigfix_user }}"
-        password: "{{ bigfix_password }}"
+        user: "{{ patch_user }}"
+        password: "{{ patch_password }}"
         body_format: raw
         body: "{{ lookup('template', 'critical_baseline.xml.j2') }}"
         status_code: [200, 201]
@@ -882,24 +881,24 @@ Get-ADSyncConnectorRunStatus | Format-Table -AutoSize
 Get-ADSyncRunProfileResult -Count 5 | Select-Object Result,StartDate,EndDate`,
   },
   {
-    id: "pb-cs-isolate",
-    name: "CrowdStrike Network Containment",
-    description: "Contain a Domain Controller host via Falcon while preserving DC critical ports allow-list.",
+    id: "pb-edr-isolate",
+    name: "EDR Network Containment",
+    description: "Contain a Domain Controller host via EDR while preserving DC critical ports allow-list.",
     category: "security",
     platform: "ansible",
     riskLevel: "high",
     requiresApproval: true,
     estimatedDuration: "1–2 min",
     script: `---
-- name: DomainHelix — Falcon contain with DC allow-list
+- name: DomainHelix — EDR contain with DC allow-list
   hosts: localhost
   tasks:
     - name: Contain device
       uri:
-        url: "{{ crowdstrike_base }}/devices/entities/devices-actions/v2?action_name=contain"
+        url: "{{ edr_base }}/devices/entities/devices-actions/v2?action_name=contain"
         method: POST
         headers:
-          Authorization: "Bearer {{ crowdstrike_token }}"
+          Authorization: "Bearer {{ edr_token }}"
         body_format: json
         body:
           ids: ["{{ device_id }}"]`,
@@ -952,95 +951,6 @@ export const DEMO_PLAYBOOK_RUNS: PlaybookRunSummary[] = [
     requestedBy: "security@contoso.com",
     approvedBy: "admin@domainhelix.local",
     createdAt: hoursAgo(1),
-  },
-];
-
-export const DEMO_CONNECTORS: ConnectorStatus[] = [
-  {
-    type: "ad",
-    name: "Active Directory",
-    description: "LDAP/LDAPS inventory of DCs, sites, trusts, FSMO, replication, and AD CS.",
-    enabled: true,
-    mockMode: true,
-    status: "healthy",
-    message: "Mock mode — serving Contoso forest demo topology",
-    lastSync: now(),
-    icon: "directory",
-  },
-  {
-    type: "entra",
-    name: "Azure Entra ID",
-    description: "Users, groups, sync status, Conditional Access, and PIM signals via Graph.",
-    enabled: true,
-    mockMode: true,
-    status: "healthy",
-    message: "Mock mode — hybrid drift dataset active",
-    lastSync: now(),
-    icon: "cloud",
-  },
-  {
-    type: "crowdstrike",
-    name: "CrowdStrike Falcon",
-    description: "Detections and vulnerability posture for Domain Controller hosts.",
-    enabled: true,
-    mockMode: true,
-    status: "degraded",
-    message: "Mock mode — 7 open detections across DC fleet",
-    lastSync: hoursAgo(0.25),
-    icon: "shield",
-  },
-  {
-    type: "dynatrace",
-    name: "Dynatrace",
-    description: "Authentication latency metrics and traces for LDAP/Kerberos paths.",
-    enabled: true,
-    mockMode: true,
-    status: "healthy",
-    message: "Mock mode — auth latency baselines loaded",
-    lastSync: hoursAgo(0.1),
-    icon: "activity",
-  },
-  {
-    type: "bigfix",
-    name: "HCL BigFix",
-    description: "Patch compliance and critical Fixlet exposure on Domain Controllers.",
-    enabled: true,
-    mockMode: true,
-    status: "healthy",
-    message: "Mock mode — compliance scores correlated",
-    lastSync: hoursAgo(1),
-    icon: "package",
-  },
-  {
-    type: "vmware",
-    name: "VMware vCenter",
-    description: "Host and cluster health for virtualized Domain Controllers.",
-    enabled: true,
-    mockMode: true,
-    status: "degraded",
-    message: "Mock mode — Dallas host memory pressure simulated",
-    lastSync: hoursAgo(0.5),
-    icon: "server",
-  },
-  {
-    type: "servicenow",
-    name: "ServiceNow",
-    description: "Extensible connector — open incidents from anomalies and playbook runs.",
-    enabled: false,
-    mockMode: true,
-    status: "unconfigured",
-    message: "Not configured — ready for extension",
-    icon: "ticket",
-  },
-  {
-    type: "splunk",
-    name: "Splunk",
-    description: "Extensible connector — forward DomainHelix events to Splunk HEC.",
-    enabled: false,
-    mockMode: true,
-    status: "unconfigured",
-    message: "Not configured — ready for extension",
-    icon: "search",
   },
 ];
 
